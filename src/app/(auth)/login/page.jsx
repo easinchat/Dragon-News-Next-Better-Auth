@@ -1,7 +1,10 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye } from "react-icons/fa";
 
 const LoginPage = () => {
   const {
@@ -10,10 +13,25 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
-  const handleLoginFunc = (data) => {
-    console.log("button clickeeeeeeeeee", data);
+  const [isShowPass, setIsShowPass] = useState(false);
+
+  const handleLoginFunc = async (data) => {
+    const { email, password } = data;
+
+    const { data: res, error } = await authClient.signIn.email({
+      email: email,
+      password: password,
+      rememberMe: true,
+      callbackURL: "/",
+    });
+    console.log(res, error);
+    // if (error) {
+    //   alert("Please type valid email and password or Sign Up");
+    // }
+    // if (res) {
+    //   alert("Sign In successfully");
+    // }
   };
-  console.log("errors", errors);
 
   return (
     <div className="container mx-auto  flex justify-center items-center">
@@ -33,11 +51,14 @@ const LoginPage = () => {
             )}
             <label className="label">Password</label>
             <input
-              type="password"
+              type={isShowPass ? "text" : "password"}
               className="input"
               placeholder="Password"
               {...register("password", { required: "Password is required" })}
             />
+            <span onClick={() => setIsShowPass(!isShowPass)}>
+              <FaEye></FaEye>
+            </span>
             {errors.password && (
               <p className="text-red-500">{errors.password.message}</p>
             )}
