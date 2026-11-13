@@ -1,15 +1,10 @@
-/** @type {import('next').NextConfig} */
+// next.config.mjs
 const nextConfig = {
-  /* config options here */
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-        port: "",
-      },
+      { protocol: "https", hostname: "i.ibb.co" },
+      { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
 };
-
 export default nextConfig;

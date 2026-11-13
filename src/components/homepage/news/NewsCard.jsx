@@ -50,7 +50,7 @@ const NewsCard = ({ news }) => {
             <h2 className="flex items-center gap-2">
               <IoIosStar className="text-lg text-yellow-500" />
 
-              {news.rating.number}
+              {news.rating?.number}
             </h2>
             <h2 className="flex items-center gap-2">
               <FaEye className="text-lg" />
