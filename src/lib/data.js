@@ -20,12 +20,12 @@
 
 const API = "https://openapi.programming-hero.com/api/news";
 
+// lib/data.js
 export async function getCategories() {
   const res = await fetch(`${API}/categories`);
   const json = await res.json();
-  return json.data;
+  return json?.data?.news_category ?? [];
 }
-
 export async function getNewsByCategoryId(category_id) {
   const res = await fetch(`${API}/category/${category_id}`);
   const json = await res.json();
